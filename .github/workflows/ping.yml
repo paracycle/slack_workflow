@@ -21,5 +21,5 @@ jobs:
             "pull_request_title": "${{ github.event.pull_request.title }}",
             "pull_request_user": "${{ github.event.pull_request.user.login }}",
             "pull_request_repo": "${{ github.event.pull_request.base.repo.full_name }}",
-            "pull_request_branch": "${{ github.event.pull_request.base.label }}"
+            "pull_request_branch": "${{ github.event.pull_request.base.ref }}"
           }'
