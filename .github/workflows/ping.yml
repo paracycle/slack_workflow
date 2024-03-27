@@ -16,6 +16,7 @@ jobs:
     steps:
       - name: Trigger slack webhook
         run: |
+          echo "${{ github.event.pull_request.number }}"
           curl -X POST -H 'Content-type: application/json' ${{ secrets.SLACK_WEBHOOK_URL }} --data \
           '
           {
