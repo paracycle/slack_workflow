@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Trigger slack webhook
-        with:
+        env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
           curl -X POST -H 'Content-type: application/json' ${{ secrets.SLACK_WEBHOOK_URL }} --data \
