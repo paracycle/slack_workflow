@@ -17,7 +17,7 @@ jobs:
           curl -X POST -H 'Content-type: application/json' --fail ${{ secrets.SLACK_WEBHOOK_URL }} --data \
           '
           {
-            "pull_request_url": "${{ github.event.repository.html_url }}/pulls/${{ github.event.pull_request.number }}",
+            "pull_request_url": "${{ github.event.repository.html_url }}/pull/${{ github.event.pull_request.number }}",
             "pull_request_number": "${{ github.event.pull_request.number }}",
             "pull_request_title": "${{ github.event.pull_request.title }}",
             "pull_request_user": "${{ github.event.pull_request.user.login }}",
