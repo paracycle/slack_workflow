@@ -12,12 +12,13 @@ jobs:
     steps:
       - name: Trigger slack webhook
         run: |
-          curl -X POST -H 'Content-type: application/json' --fail ${{ secrets.SLACK_WEBHOOK_URL }} --data \
-          '
-          {
-            "pull_request_url": "${{ github.event.repository.html_url }}/pull/${{ github.event.pull_request.number }}",
-            "pull_request_number": "${{ github.event.pull_request.number }}",
-            "pull_request_title": ":errors: ${{ github.event.pull_request.title }}",
-            "pull_request_user": "${{ github.event.pull_request.user.login }}",
-            "buildkite_url": "${{ secrets.BUILDKITE_TRIGGER_URL }}?message=shopify/tapioca/${{ github.event.pull_request.number }}&branch=at-fix-tapioca-pipeline&env=TAPIOCA_REPO=${{ github.event.pull_request.head.repo.full_name }}%0ATAPIOCA_BRANCH=${{ github.event.pull_request.head.ref }}%0ATAPIOCA_PR=${{ github.event.pull_request.number }}#new",
-          }'
+          TEXT=$(cat <<'EOF'
+          :pr: New pull request on shopify/tapioca
+
+          ${{ github.event.pull_request.html_url }}
+
+          :buildkite: ${{ secrets.BUILDKITE_TRIGGER_URL }}?message=shopify/tapioca/${{ github.event.pull_request.number }}&branch=at-fix-tapioca-pipeline&env=TAPIOCA_REPO=${{ github.event.pull_request.head.repo.full_name }}%0ATAPIOCA_BRANCH=${{ github.event.pull_request.head.ref }}%0ATAPIOCA_PR=${{ github.event.pull_request.number }}#new
+          EOF
+          )
+
+          curl -X POST -H 'Content-type: application/json' --fail ${{ secrets.SLACK_WEBHOOK_URL }} --data '{ "text": "$TEXT" }'
